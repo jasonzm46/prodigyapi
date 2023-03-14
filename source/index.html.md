@@ -2,10 +2,7 @@
 title: API Reference
 
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
-  - shell
-  - ruby
-  - python
-  - javascript
+  - plaintext
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -20,56 +17,138 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the Prodigy API
 ---
 
-# Introduction
+# Prodigy API Documentation
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+//START of section - Do NOT copy this section to CMS//
+This is Work in Progress documentation for the Prodigy API suite. The current structure of this document is a mix of competitive and first party content. The overall structure and content will change significantly.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Customers will use our API to post and get information. There will be multiple APIs to document. A customer may use one or more of these APIs to complete tasks within our system.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+<b> APIs to be documented </b>
 
-# Authentication
+API | Description
+--------- |------------
+FIX |   FIX (Financial Information eXchange) API is a messaging protocol that is commonly used in the electronic trading industry to enter orders, submit cancel requests, and receive fills. This is intended to be used in conjunction with the FIX 4.4 Protocol Specification.
+Websocket |The WebSocket API makes it possible to open a two-way interactive communication session between the user's browser and a server. With this API, you can send messages to a server and receive event-driven responses without having to poll the server for a reply. 
+stunnel | Stunnel is a proxy designed to add TLS encryption functionality to existing clients and servers without any changes in the programs' code. Stunnel uses the OpenSSL library for cryptography, so it supports whatever cryptographic algorithms are compiled into the library.       
 
-> To authorize, use this code:
+<b>Style</b>  
+The final documentation should adhere to the following conventions:
+Minimal prose. Keep the prose simple and functional. APIs are typically used by subject matter experts, thus the syntax and code are most important and should not be buried within or after long prose explanations.
+San-serif font for prose, serif for code.
+Precise coding examples that can be copied for ease of use. Code must be properly indented.
+If there are multiple steps in a process, provide an overview of each step before the detailed example for each.
+Clear mathematical formulae where applicable. (Mathematical formulae will more likely appear in our application documentation.)
 
-```ruby
-require 'kittn'
+//END of section//
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+# <b>Table of Contents</b>
+
+Overview 
+Websocket API 
+  Currently Supported Instruments
+  Connectivity (alpha)
+  Authorization
+  Depth of Market Subscription (depth)
+  Price Info Subscription (price_info)
+  Websocket Availability
+  Websocket FAQ
+stunnel Connectivity
+  Setup a client-side stunnel to connect to Prodigy’s CLOB
+FIX API
+  Logon <A>
+    Anatomy of a Logon Message
+  Logout <5>
+    Anatomy of a Logout Message
+  NewOrderSingle <D>
+    Anatomy of a NewOrderSingle Message
+  OrderCancelRequest <F>
+    Anatomy of a OrderCancelRequest Message
+  OrderMassStatus <AF>
+    Anatomy of a OrderMassStatus Message
+  TradeCaptureReportRequest <AD>
+    Anatomy of a TradeCaptureReportRequest Message
+
+
+
+
+# <b> Overview </b>
+
+This document describes the API for the Prodigy decentralized exchange.
+
+By using any API provided by Prodigy, you agree to its Terms of Use and Privacy Policy.
+
+## Currently Supported Instruments
+BTC-USD: Bitcoin/USD spot price
+
+# Depth of Market Subscription (depth)
+
+Gets depth data for a market.
+## Subscribe Message
+Gets depth data for a market.
+
+```plaintext
+{
+'user': 'g',
+'action': 'subscribe',
+'type': 'depth',
+'value': ['BTC-USD'],
+"token":"<provided by Prodigy>"
+};
+
+```
+## Response
+The initial depth data response returns information about the market and its current buy and sell levels with data that describes the depth at each level.
+
+Data | Definition
+--------- |------------
+Denominator | Factor to divide <Price> by for USD value      
+available | true       
+
+
+```plaintext
+{
+  "data": {
+"Denominator":"100",
+"DisplaySymbol":"BTC-USD",
+"SecurityID":"1000000189",
+"Symbol":"BTC-USD",
+"buy_levels": [...
+{
+"NumOfOrders": "10",
+"Price": "2037600",
+"Qty": "4660000",
+},
+...],
+"sell_levels": [...
+{
+"NumOfOrders": "7",
+"Price": "2056150",
+"Qty": "6370000",
+},
+...],
+},
+  "Type":3
+}
+
+
 ```
 
-```python
-import kittn
+Use the `Logon <A>` message to authenticate a user establishing a connection to a remote system. The `Logon <A>` message must be the first message sent by the application requesting to initiate a FIX session.
 
-api = kittn.authorize('meowmeowmeow')
-```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
 
-```javascript
-const kittn = require('kittn');
+## Setup a client-side stunnel to connect to Prodigy’s CLOB
 
-let api = kittn.authorize('meowmeowmeow');
-```
+<b>Important environment variables:</b>
 
-> Make sure to replace `meowmeowmeow` with your API key.
+`export CLOB_HOST=clob-alpha.prodigy`
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+`export STUNNEL_PORT=[THE_LOCAL_PORT_TO_OPEN]`
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
 
 # Kittens
 
