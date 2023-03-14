@@ -2,10 +2,7 @@
 title: API Reference
 
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
-  - shell
-  - ruby
-  - python
-  - javascript
+  - plaintext
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -20,10 +17,10 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the Prodigy API
 ---
 
-# Introduction
+# Prodigy API Documentation
 
 Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
 
@@ -31,45 +28,71 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
-# Authentication
+# Depth of Market Subscription (depth)
 
-> To authorize, use this code:
+Gets depth data for a market.
+## Subscribe Message
+Gets depth data for a market.
 
-```ruby
-require 'kittn'
+```plaintext
+{
+'user': 'g',
+'action': 'subscribe',
+'type': 'depth',
+'value': ['BTC-USD'],
+"token":"<provided by Prodigy>"
+};
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```
+## Response
+The initial depth data response returns information about the market and its current buy and sell levels with data that describes the depth at each level.
+
+Data | Definition
+--------- |------------
+Denominator | Factor to divide <Price> by for USD value      
+available | true       
+
+
+```plaintext
+{
+  "data": {
+"Denominator":"100",
+"DisplaySymbol":"BTC-USD",
+"SecurityID":"1000000189",
+"Symbol":"BTC-USD",
+"buy_levels": [...
+{
+"NumOfOrders": "10",
+"Price": "2037600",
+"Qty": "4660000",
+},
+...],
+"sell_levels": [...
+{
+"NumOfOrders": "7",
+"Price": "2056150",
+"Qty": "6370000",
+},
+...],
+},
+  "Type":3
+}
+
+
 ```
 
-```python
-import kittn
+Use the `Logon <A>` message to authenticate a user establishing a connection to a remote system. The `Logon <A>` message must be the first message sent by the application requesting to initiate a FIX session.
 
-api = kittn.authorize('meowmeowmeow')
-```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
 
-```javascript
-const kittn = require('kittn');
+## Setup a client-side stunnel to connect to Prodigy’s CLOB
 
-let api = kittn.authorize('meowmeowmeow');
-```
+<b>Important environment variables:</b>
 
-> Make sure to replace `meowmeowmeow` with your API key.
+`export CLOB_HOST=clob-alpha.prodigy`
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+`export STUNNEL_PORT=[THE_LOCAL_PORT_TO_OPEN]`
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
 
 # Kittens
 
