@@ -109,6 +109,33 @@ Denominator | Factor to divide <Price> by for USD value
 available | true       
 
 
+=======
+# Depth of Market Subscription (depth)
+
+Gets depth data for a market.
+## Subscribe Message
+Gets depth data for a market.
+
+```plaintext
+{
+'user': 'g',
+'action': 'subscribe',
+'type': 'depth',
+'value': ['BTC-USD'],
+"token":"<provided by Prodigy>"
+};
+
+```
+## Response
+The initial depth data response returns information about the market and its current buy and sell levels with data that describes the depth at each level.
+
+Data | Definition
+--------- |------------
+Denominator | Factor to divide <Price> by for USD value      
+available | true       
+
+
+
 ```plaintext
 {
   "data": {
