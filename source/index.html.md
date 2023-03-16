@@ -22,11 +22,67 @@ meta:
 
 # Prodigy API Documentation
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+//START of section - Do NOT copy this section to CMS//
+This is Work in Progress documentation for the Prodigy API suite. The current structure of this document is a mix of competitive and first party content. The overall structure and content will change significantly.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Customers will use our API to post and get information. There will be multiple APIs to document. A customer may use one or more of these APIs to complete tasks within our system.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+<b> APIs to be documented </b>
+
+API | Description
+--------- |------------
+FIX |   FIX (Financial Information eXchange) API is a messaging protocol that is commonly used in the electronic trading industry to enter orders, submit cancel requests, and receive fills. This is intended to be used in conjunction with the FIX 4.4 Protocol Specification.
+Websocket |The WebSocket API makes it possible to open a two-way interactive communication session between the user's browser and a server. With this API, you can send messages to a server and receive event-driven responses without having to poll the server for a reply. 
+stunnel | Stunnel is a proxy designed to add TLS encryption functionality to existing clients and servers without any changes in the programs' code. Stunnel uses the OpenSSL library for cryptography, so it supports whatever cryptographic algorithms are compiled into the library.       
+
+<b>Style</b>  
+The final documentation should adhere to the following conventions:
+Minimal prose. Keep the prose simple and functional. APIs are typically used by subject matter experts, thus the syntax and code are most important and should not be buried within or after long prose explanations.
+San-serif font for prose, serif for code.
+Precise coding examples that can be copied for ease of use. Code must be properly indented.
+If there are multiple steps in a process, provide an overview of each step before the detailed example for each.
+Clear mathematical formulae where applicable. (Mathematical formulae will more likely appear in our application documentation.)
+
+//END of section//
+
+# <b>Table of Contents</b>
+
+Overview 
+Websocket API 
+  Currently Supported Instruments
+  Connectivity (alpha)
+  Authorization
+  Depth of Market Subscription (depth)
+  Price Info Subscription (price_info)
+  Websocket Availability
+  Websocket FAQ
+stunnel Connectivity
+  Setup a client-side stunnel to connect to Prodigy’s CLOB
+FIX API
+  Logon <A>
+    Anatomy of a Logon Message
+  Logout <5>
+    Anatomy of a Logout Message
+  NewOrderSingle <D>
+    Anatomy of a NewOrderSingle Message
+  OrderCancelRequest <F>
+    Anatomy of a OrderCancelRequest Message
+  OrderMassStatus <AF>
+    Anatomy of a OrderMassStatus Message
+  TradeCaptureReportRequest <AD>
+    Anatomy of a TradeCaptureReportRequest Message
+
+
+
+
+# <b> Overview </b>
+
+This document describes the API for the Prodigy decentralized exchange.
+
+By using any API provided by Prodigy, you agree to its Terms of Use and Privacy Policy.
+
+## Currently Supported Instruments
+BTC-USD: Bitcoin/USD spot price
 
 # Depth of Market Subscription (depth)
 
@@ -51,6 +107,33 @@ Data | Definition
 --------- |------------
 Denominator | Factor to divide <Price> by for USD value      
 available | true       
+
+
+=======
+# Depth of Market Subscription (depth)
+
+Gets depth data for a market.
+## Subscribe Message
+Gets depth data for a market.
+
+```plaintext
+{
+'user': 'g',
+'action': 'subscribe',
+'type': 'depth',
+'value': ['BTC-USD'],
+"token":"<provided by Prodigy>"
+};
+
+```
+## Response
+The initial depth data response returns information about the market and its current buy and sell levels with data that describes the depth at each level.
+
+Data | Definition
+--------- |------------
+Denominator | Factor to divide <Price> by for USD value      
+available | true       
+
 
 
 ```plaintext
