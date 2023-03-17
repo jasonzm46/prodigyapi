@@ -2,10 +2,10 @@
 title: API Reference
 
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
-  - plaintext
+- plaintext
 
 toc_footers:
-  - <a href='https://prodigy.fi'>Prodigy Protocol</a>
+- <a href='https://prodigy.fi'>Prodigy Protocol</a>
 
 includes:
 
@@ -15,8 +15,8 @@ search: true
 code_clipboard: true
 
 meta:
-  - name: description
-  - content: Documentation for the Prodigy Protocol API
+- name: description
+- content: Documentation for the Prodigy Protocol API
 ---
 
 # Prodigy API Documentation
@@ -390,17 +390,20 @@ Logout payload example
 
 Where:
 
-|   Field  |   Value  |  Tag Name   |  Is Required   |   Definition  |
-|-----|-----|-----|-----|-----|
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
+| Field           | Value                 |  Tag Name   | Is Required |   Definition  |
+|-----------------|-----------------------|-----|-------------|-----|
+| 8               | FIX 4.4               |   BeginString  | Y           | FIX protocol version    |
+| 9               | 66                    | BodyLength    | Y           | Message length in bytes    |
+| 35              | 5                     | MsgType    | Y           |  Message type is a Logout message   |
+| 49              | ACCOUNT_MNEMONIC      |  SenderCompID   | Y           |  ID of party sending message   |
+| 52              | 20221027-00:00:00.949 |   SendingTime  | Y           |  Time of message   |
+| 56              | order_router          |  TargetCompID   | Y           |  ID of party receiving message   |
+| 10              | 027                   | Checksum    | Y           |  Checksum of FIX message   |
+| `<MessageHeader>`  |                       |                       |             |     |
+| 58              | String                | Text    | N           |  Information to include with the message   |
+| 354             |                       | EncodedTextLen    |             |  Must be set if Encoded Text <355> field is specified and must immediately precede it   |
+| 355             |                       |  EncodedText   |             |  Encoded (non-ASCII characters) representation of the Text`<58>`field in the encoded format specified via the MessageEncoding `<347>` field
+| `<MessageTrailer>`              |                       |     | Y           |     |
 
 ## `NewOrderSingle <D>`
 
@@ -427,17 +430,30 @@ NewOrderSingle payload example
 
 Where:
 
-|   Field  |   Value  |  Tag Name   |  Is Required   |   Definition  |
-|-----|-----|-----|-----|-----|
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
+| Field            | Value                 | Tag Name           | Is Required | Definition                                                                                                                             |
+|------------------|-----------------------|--------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| 8                | FIX 4.4               | BeginString        | Y           | FIX protocol version                                                                                                                   |
+| 9                | 66                    | BodyLength         | Y           | Message length in bytes                                                                                                                |
+| 35               | 5                     | MsgType            | Y           | Message type is a Logout message                                                                                                       |
+| 49               | String                | ACCOUNT_MNEMONIC   | Y           | ID of party sending message                                                                                                            |
+| 52               | 20221027-00:00:00.949 | SendingTime        | Y           | Time of message                                                                                                                        |
+| 56               | order_router          | String             | Y           | ID of party receiving message                                                                                                          |
+| 10               | 027                   | Checksum           | Y           | Checksum of FIX message                                                                                                                |
+| `<MessageHeader>` |                       |                    | Y           | MsgType<35>=D                                                                                                                          |
+| 11               | String                | ClOrdID            | Y           | Unique identifier of the order as assigned by institution or by the intermediary with closest association with the investor            |
+| 1                | String                | Account            | N           | Account mnemonic as agreed between buy and sell sides, e.g. broker and institution or investor/intermediary and fund manager           |
+| 100              | Exchange              | ExDestination      | N           | Execution destination as defined by institution when order is entered                                                                  |
+| `<Instrument>`   |                       | Instrument fields  | Y           | One or more of the following instrument tags                                                                                           |
+| _55_             | _String_                | _Symbol_           | _N_         | _Common and human readable representation of the securities_                                                                           |
+| _48_             | _String_                   | _SecurityID_       | _N_         | _Takes precedence in identifying security to counterparty over SecurityA/tID <455> block. Requires SecurityIDSource <22> if specified_ |
+| _22_             | _String_                   | _SecurityIDSource_ | _N_         | _Alternate identifier for this security_                                                                                               |
+| 54               |  Side                     | char               | Y           | _Side of the order_                                                                                                                    |
+| 60               |  TransactTime                   | UTCTimestamp       | Y           | Time this order request was initiated/released by the trader, trading system, or intermediary                                          |
+| 38               |                       |                    | Y           | Quantity ordered                                                                                                                       |
+| 40               |  OrdType                   | char               | Y           | Order Type`1 = market 2 = limit 3 = stop 4 = spot limit`                                                                               |
+| 44               |  Price                    | Price              | N*          | Price per unit of quantity Required for limit orders                                                                                   |
+| 59               |  TimeInForce                    | char               | N*          |   Specifies how long the order remains in effect. Absence of this field is interpreted as DAY                                                                                                                                     |
+| `<MessageTrailer>`                 |                       | Y                  |             |                                                                                                                                        |
 
 
 ## `OrderCancelRequest <F>`
@@ -458,17 +474,18 @@ OrderCancelRequest payload example
 
 Where:
 
-|   Field  |   Value  |  Tag Name   |  Is Required   |   Definition  |
-|-----|-----|-----|-----|-----|
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
+| Field           | Value                |  Tag Name   | Is Required |   Definition  |
+|-----------------|----------------------|-----|-------------|-----|
+| `<MessageHeader>` |                      |     | Y           | MsgType<35>=F    |
+| 41              | ACC_001_1567450006911 | OrigIOrdID    | Y           |   ClOrdID <11> of the previous order (NOT the initial order of the day when canceling or replacing an order  |
+| 11              | ACC_001_1667450006914 |  CIOrdiD   | Y           |  Unique ID of cancel request as assigned by the institution   |
+| 1               | Value=ACC_001        |  Account   | N           |  Account mnemonic as agreed between buy and sell sides, e.g. broker and institution or investor/intermediary and fund manager   |
+| 55              | Value=BTC-USD           |  Symbol   | Y           |  Common and human readable representation of the securities   |
+| 48              | 1000000189                    |  SecurityiD   | N           |  Alternate security identifier   |
+| 54              | 1                    |  Side   | Y           |  Side of the order   |
+| 60              | 20221103-04:33:27.139 |   TransactTime  | Y           |   Time this order request was initiated/released by the trader, trading system, or intermediary  |
+| 38              | 69                   |   OrderQty  | Y           |  Number of instruments ordered   |
+| `<MessageTrailer>` |                      |     | Y           |     |
 
 
 ## `OrderMassStatus <AF>`
@@ -489,17 +506,23 @@ OrderMassStatus payload example
 
 Where:
 
-|   Field  |   Value  |  Tag Name   |  Is Required   |   Definition  |
-|-----|-----|-----|-----|-----|
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
+| Field                 | Value | Tag Name        | Is Required | Definition                                                     |
+|-----------------------|-------|-----------------|-------------|----------------------------------------------------------------|
+|      <MessageHeader>                 |       |                 | Y           | MsgType<35>=AF                                                 |
+| 584                   | 4     | MassStatusReqID | Y           | Unique ID of mass status request as assigned by the institution |
+| 585                   | 7     |   MassStatusReqType              | Y           | Specifies the scope of the mass status request                 |
+| <B> Valid Values </B> |       |                 |             |                                                                |
+|                       |       |                 | 1           | Status for orders for a security                               |
+|                       |       |                 | 2           | Status for orders for an Underlying security                   |
+|                       |       |                 | 3           | Status for orders for a Product`<460>`                         |
+|                       |       |                 | 4           | Status for orders for a CFICode `<461>`                        |
+|                       |       |                 | 5           | Status for orders for a SecurityType `<167>`                   |
+|                       |       |                 | 6           | Status for orders for a trading session                        |
+|                       |       |                 | 7           | Status for all orders                                                               |
+|                       |       |                 | 8           | Status for orders for a PartyID <448>                                                             |
+|                       |       |                 | 9           | Status for orders for an account                                                              |
+| 1                     | *     |   Account              | N           |    Account                                                            |
+| `<MessageTrailer>`    |       |                 | Y           |                                                                |
 
 
 ## `TradeCaptureReportRequest <AD>`
@@ -522,14 +545,19 @@ TradeCaptureReportRequest payload example
 
 Where:
 
-|   Field  |   Value  |  Tag Name   |  Is Required   |   Definition  |
-|-----|-----|-----|-----|-----|
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
-|     |     |     |     |     |
+| Field                 | Value       | Tag Name       | Is Required | Definition                                                                                                                                   |
+|-----------------------|-------------|----------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+|`<MessageHeader> `                 |             |                | Y          | MsgType<35>=AF                                                                                                                               |
+| 1                     | *           | Account        | Y          | Account mnemonic as agreed between buy and sell sides                                                                                        |
+| 58                    | *           | Text           | Y          | Free format text string                                                                                                                      |
+| 100                   | *           | ExDestination        | Y          | Execution destination as defined by institution when order is entered                                                                        |
+| 568                   | T21656588915 | TradeRequestID   | Y          | Identifier for the trade request                                                                                                             |
+| 569                   | 0           | TradeRequestType   | Y          | Type of Trade Capture Report                                                                                                                 |
+| <b> Valid Values </b> |                 |                                                                                                                                              |
+|                       |        |        | 0          | all trades                                                                                                                                   |
+|                       |             |                | 1          | Matched trades matching Criteria provided on request (parties, exec id, trade id, order id, instrument, input source, etc.)                                                                                                                                            |
+|                       |       |            | 2          | Unmatched trades that match criteria                                                                                                      |
+|                       |             |  | 3          | Unreported trades that match criteria                                                         |
+|                       |             |    | 4          | Advisories that match criteria |
+| <MessageTrailer>      |             |                | Y          |                                                                                                                                              |
+
