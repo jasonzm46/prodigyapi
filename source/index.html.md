@@ -8,7 +8,7 @@ toc_footers:
   - <a href='https://prodigy.fi'>Prodigy Protocol</a>
 
 includes:
-  - errors
+
 
 search: true
 
@@ -67,7 +67,9 @@ A. Aside from confirmation of the connection being established, the initial dept
 
 Gets depth data for a market.
 
-## Subscribe Message
+## Subscribe message
+
+> Subscribe message
 
 ```plaintext
 {
@@ -100,6 +102,8 @@ sell_levels | Array of sell orders by level (details for each below)
 
 
 Example response:
+
+>Example response
 
 ```plaintext
 {
@@ -143,7 +147,9 @@ updates | Array of updates to market depth (details for each below)
 &nbsp;&nbsp;&nbsp;Qty | Quantity of securities that were updated       
 &nbsp;&nbsp;&nbsp;Side | Side of the market of this update (Buy / Sell)         
 
-Example message response:
+Example subsequent message response:
+
+> Example subsequent message response
 
 ```plaintext
 {
@@ -178,6 +184,9 @@ Example message response:
 Gets price data for a market.
 
 ### Subscribe Message
+
+> Subscribe message
+
 ```plaintext
 {
 'user': 'g',
@@ -187,6 +196,7 @@ Gets price data for a market.
 "token":"<provided by Prodigy>"
 };
 ```
+
 ### Response
 
 Data | Definition
@@ -203,6 +213,9 @@ Symbol  | Symbol of market
 
 
 Example message response:
+
+> Example message response
+
 ```plaintext
 {
 "data": {
@@ -239,11 +252,15 @@ Below is a guide to using a dockerized stunnel implementation available to you f
 
 `export STUNNEL_PORT=[THE_LOCAL_PORT_TO_OPEN]`
 
-> NOTE: (Optional) If TCP port 36814 is in use, change the local tunnel port to an available one.
+<aside class="notice">
+NOTE: (Optional) If TCP port 36814 is in use, change the local tunnel port to an available one.
+</aside>
 
 Alternatively, these environment variables can be passed in on the command line (see below).
 
 ### Download Prodigy stunnel docker-compose.yml file
+
+> Prodigy stunnel docker-compose.yml file
 ```plaintext
 version: '3.9'
 services:
@@ -319,7 +336,9 @@ The `Logon <A>` message can be used to specify the <code>MaxMessageSize <383></c
 
 ### Anatomy of a Logon Message
 
-Payload Example
+Payload example
+
+> Logon payload example
 ```plaintext
 8=FIX.4.4 | 9=94 | 35=A | 49=ACCOUNT_MNEMONIC | 56=order_router | 34=1 | 52=20221007-15:49:42.769 | 98=0 | 108=30 | 141=Y | 10=112 |
 ```
@@ -363,7 +382,8 @@ After sending the Logout message, the initiator should not send any messages unl
 
 ### Anatomy of a Logout Message
 
-Payload Example
+Logout payload example
+> Logout payload example
 ```plaintext
 8=FIX.4.4 | 9=66 | 35=5 | 49=ACCOUNT_MNEMONIC | 52=20221027-00:00:00.949 | 56=order_router | 10=027 |
 ```
@@ -398,7 +418,8 @@ To "take" an `IOI <6>` (or `Quote <S>`) from an ECN or exchange and not display 
 Anatomy of a NewOrderSingle Message
 
 
-Payload Example
+NewOrderSingle payload example
+> NewOrderSingle payload example
 ```plaintext
 8=FIX.4.4 | 9=66 | 35=5 | 49=ACCOUNT_MNEMONIC | 52=20221027-00:00:00.949 | 56=order_router | 10=027 |
 ```
@@ -429,7 +450,8 @@ A cancel request is assigned a `ClOrdID <11>` and is treated as a separate entit
 
 ### Anatomy of a OrderCancelRequest Message
 
-Payload Example
+OrderCancelRequest payload example
+> OrderCancelRequest payload example
 ```plaintext
 8=FIX.4.4 | 9=197 | 35=F | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=6 | 52=20221103-05:15:53.225 | 41=ACC_OO1-1567450006911 | 11=ACC_001_1667450006914 | 1=SCC_001 55=BTC-USD | 48=1000000189 | 54=1 | 60=20221103-04:33:27.139 | 38=69 | 10=238
 ```
@@ -459,7 +481,8 @@ Use the `MassStatusReqType <585>` field to specify the selection criteria for th
 
 ### Anatomy of a OrderMassStatus Message
 
-Payload Example
+OrderMassStatus payload example
+> OrderMassStatus payload example
 ```plaintext
 8=FIX.4.4 | 9=93 35=AF | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=5. | 52=20221103-05:15:40.884 | 584=4 | 585=7 | 1=* | 10=039
 ```
@@ -491,7 +514,8 @@ After looking at the `TradeCaptureReportRequest` in the example section below, n
 
 ### Anatomy of a `TradeCaptureReportRequest` Message
 
-Payload Example
+TradeCaptureReportRequest payload example
+> TradeCaptureReportRequest payload example
 ```plaintext
 8=FIX.4.4 | 9=117 | 35=AD | 34=3 | 49=EIB_TRADER1_EMAIL_COM | 52=20221103-05:15:40.884 | 56=order_router | 1=* | 58=* | 100=* | 568=T21666588915 | 569=0 | 10=137
 ```
