@@ -266,7 +266,7 @@ Alternatively, these environment variables can be passed in on the command line 
 version: '3.9'
 services:
 stunnel:
-\#image: dweomer/stunnel
+``#image: dweomer/stunnel``
 image: gitlab.dev.blockriver.tech:5050/gyeu/stunnel
 container_name: stunnel
 ports:
@@ -480,7 +480,7 @@ OrderCancelRequest payload example
 8=FIX.4.4 | 9=197 | 35=F | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=6 | 52=20221103-05:15:53.225 | 41=ACC_OO1-1567450006911 | 11=ACC_001_1667450006914 | 1=SCC_001 55=BTC-USD | 48=1000000189 | 54=1 | 60=20221103-04:33:27.139 | 38=69 | 10=238
 ```
 
-Where:
+Where: 
 
 | Field           | Value                |  Tag Name   | Is Required |   Definition  |
 |-----------------|----------------------|-----|-------------|-----|
