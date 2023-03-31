@@ -266,7 +266,7 @@ Alternatively, these environment variables can be passed in on the command line 
 version: '3.9'
 services:
 stunnel:
-\#image: dweomer/stunnel
+``#image: dweomer/stunnel``
 image: gitlab.dev.blockriver.tech:5050/gyeu/stunnel
 container_name: stunnel
 ports:
