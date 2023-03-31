@@ -63,11 +63,11 @@ USD price of BTC is $24,238.5
 Q. What are the different responses coming from the depth ws connection?
 A. Aside from confirmation of the connection being established, the initial depth data message will detail the current depth of the market at each price level on both the buy and sell side. Subsequent messages will update depth at those price levels based on actions taken by market participants. These actions can be new orders being added, existing orders being canceled, modified, or taken.
 
-# Depth of Market subscription (depth)
+## Depth of Market subscription (depth)
 
 Gets depth data for a market.
 
-## Subscribe message
+### Subscribe message
 
 > Subscribe message
 
@@ -82,7 +82,7 @@ Gets depth data for a market.
 
 ```
 
-## Response
+### Response
 The initial depth data response returns information about the market and its current buy and sell levels with data that describes the depth at each level.
 
 Data | Definition
@@ -130,7 +130,7 @@ Example response:
   "Type":3
 ```
 
-## Subsequent Responses
+### Subsequent Responses
 
 Updates depth data for a market. Subsequently, depth data responses return updates to the depth of the market.
 
@@ -261,11 +261,12 @@ Alternatively, these environment variables can be passed in on the command line 
 ### Download Prodigy stunnel docker-compose.yml file
 
 > Prodigy stunnel docker-compose.yml file
+
 ```plaintext
 version: '3.9'
 services:
 stunnel:
-#image: dweomer/stunnel
+\#image: dweomer/stunnel
 image: gitlab.dev.blockriver.tech:5050/gyeu/stunnel
 container_name: stunnel
 ports:
@@ -339,6 +340,7 @@ The `Logon <A>` message can be used to specify the <code>MaxMessageSize <383></c
 Payload example
 
 > Logon payload example
+
 ```plaintext
 8=FIX.4.4 | 9=94 | 35=A | 49=ACCOUNT_MNEMONIC | 56=order_router | 34=1 | 52=20221007-15:49:42.769 | 98=0 | 108=30 | 141=Y | 10=112 |
 ```
@@ -383,7 +385,9 @@ After sending the Logout message, the initiator should not send any messages unl
 ### Anatomy of a Logout Message
 
 Logout payload example
+
 > Logout payload example
+
 ```plaintext
 8=FIX.4.4 | 9=66 | 35=5 | 49=ACCOUNT_MNEMONIC | 52=20221027-00:00:00.949 | 56=order_router | 10=027 |
 ```
@@ -422,7 +426,9 @@ Anatomy of a NewOrderSingle Message
 
 
 NewOrderSingle payload example
+
 > NewOrderSingle payload example
+
 ```plaintext
 8=FIX.4.4 | 9=66 | 35=5 | 49=ACCOUNT_MNEMONIC | 52=20221027-00:00:00.949 | 56=order_router | 10=027 |
 ```
@@ -467,7 +473,9 @@ A cancel request is assigned a `ClOrdID <11>` and is treated as a separate entit
 ### Anatomy of a OrderCancelRequest Message
 
 OrderCancelRequest payload example
+
 > OrderCancelRequest payload example
+
 ```plaintext
 8=FIX.4.4 | 9=197 | 35=F | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=6 | 52=20221103-05:15:53.225 | 41=ACC_OO1-1567450006911 | 11=ACC_001_1667450006914 | 1=SCC_001 55=BTC-USD | 48=1000000189 | 54=1 | 60=20221103-04:33:27.139 | 38=69 | 10=238
 ```
@@ -499,7 +507,9 @@ Use the `MassStatusReqType <585>` field to specify the selection criteria for th
 ### Anatomy of a OrderMassStatus Message
 
 OrderMassStatus payload example
+
 > OrderMassStatus payload example
+
 ```plaintext
 8=FIX.4.4 | 9=93 35=AF | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=5. | 52=20221103-05:15:40.884 | 584=4 | 585=7 | 1=* | 10=039
 ```
@@ -538,7 +548,9 @@ After looking at the `TradeCaptureReportRequest` in the example section below, n
 ### Anatomy of a `TradeCaptureReportRequest` Message
 
 TradeCaptureReportRequest payload example
+
 > TradeCaptureReportRequest payload example
+
 ```plaintext
 8=FIX.4.4 | 9=117 | 35=AD | 34=3 | 49=EIB_TRADER1_EMAIL_COM | 52=20221103-05:15:40.884 | 56=order_router | 1=* | 58=* | 100=* | 568=T21666588915 | 569=0 | 10=137
 ```
