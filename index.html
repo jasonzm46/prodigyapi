@@ -340,8 +340,19 @@
                   <li>
                     <a href="#websocket-faq" class="toc-h2 toc-link" data-title="Websocket FAQ">Websocket FAQ</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#depth-of-market-subscription-depth" class="toc-h1 toc-link" data-title="Depth of Market subscription (depth)">Depth of Market subscription (depth)</a>
+              <ul class="toc-list-h2">
                   <li>
-                    <a href="#depth-of-market-subscription-depth" class="toc-h2 toc-link" data-title="Depth of Market subscription (depth)">Depth of Market subscription (depth)</a>
+                    <a href="#subscribe-message" class="toc-h2 toc-link" data-title="Subscribe message">Subscribe message</a>
+                  </li>
+                  <li>
+                    <a href="#response" class="toc-h2 toc-link" data-title="Response">Response</a>
+                  </li>
+                  <li>
+                    <a href="#subsequent-responses" class="toc-h2 toc-link" data-title="Subsequent Responses">Subsequent Responses</a>
                   </li>
                   <li>
                     <a href="#price-info-subscription-price_info" class="toc-h2 toc-link" data-title="Price Info Subscription (price_info)">Price Info Subscription (price_info)</a>
@@ -353,6 +364,17 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#setup-a-client-side-stunnel-to-connect-to-prodigy-s-clob" class="toc-h2 toc-link" data-title="Setup a client-side stunnel to connect to Prodigy’s CLOB">Setup a client-side stunnel to connect to Prodigy’s CLOB</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#image-dweomer-stunnel" class="toc-h1 toc-link" data-title="image: dweomer/stunnel">image: dweomer/stunnel</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#build-docker-container-with-the-prodigy-stunnel-docker-compose-yml-file" class="toc-h2 toc-link" data-title="Build Docker container with the Prodigy stunnel docker-compose.yml file">Build Docker container with the Prodigy stunnel docker-compose.yml file</a>
+                  </li>
+                  <li>
+                    <a href="#install-docker-and-docker-compose" class="toc-h2 toc-link" data-title="Install docker and docker-compose">Install docker and docker-compose</a>
                   </li>
               </ul>
           </li>
@@ -423,9 +445,9 @@ USD price of BTC is $24,238.5</p>
 
 <p>Q. What are the different responses coming from the depth ws connection?
 A. Aside from confirmation of the connection being established, the initial depth data message will detail the current depth of the market at each price level on both the buy and sell side. Subsequent messages will update depth at those price levels based on actions taken by market participants. These actions can be new orders being added, existing orders being canceled, modified, or taken.</p>
-<h2 id='depth-of-market-subscription-depth'>Depth of Market subscription (depth)</h2>
+<h1 id='depth-of-market-subscription-depth'>Depth of Market subscription (depth)</h1>
 <p>Gets depth data for a market.</p>
-<h3 id='subscribe-message'>Subscribe message</h3>
+<h2 id='subscribe-message'>Subscribe message</h2>
 <blockquote>
 <p>Subscribe message</p>
 </blockquote>
@@ -437,7 +459,7 @@ A. Aside from confirmation of the connection being established, the initial dept
 "token":"&lt;provided by Prodigy&gt;"
 };
 
-</code></pre></div><h3 id='response'>Response</h3>
+</code></pre></div><h2 id='response'>Response</h2>
 <p>The initial depth data response returns information about the market and its current buy and sell levels with data that describes the depth at each level.</p>
 
 <table><thead>
@@ -523,7 +545,7 @@ A. Aside from confirmation of the connection being established, the initial dept
 ...],
 },
   "Type":3
-</code></pre></div><h3 id='subsequent-responses'>Subsequent Responses</h3>
+</code></pre></div><h2 id='subsequent-responses'>Subsequent Responses</h2>
 <p>Updates depth data for a market. Subsequently, depth data responses return updates to the depth of the market.</p>
 
 <table><thead>
@@ -702,13 +724,13 @@ NOTE: (Optional) If TCP port 36814 is in use, change the local tunnel port to an
 <p>Alternatively, these environment variables can be passed in on the command line (see below).</p>
 <h3 id='download-prodigy-stunnel-docker-compose-yml-file'>Download Prodigy stunnel docker-compose.yml file</h3>
 <blockquote>
-<p>Prodigy stunnel docker-compose.yml file</p>
-</blockquote>
-<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>version: '3.9'
+<p>Prodigy stunnel docker-compose.yml file
+```plaintext
+version: &#39;3.9&#39;
 services:
-stunnel:
-``#image: dweomer/stunnel``
-image: gitlab.dev.blockriver.tech:5050/gyeu/stunnel
+stunnel:</p>
+<h1 id='image-dweomer-stunnel'>image: dweomer/stunnel</h1>
+<p>image: gitlab.dev.blockriver.tech:5050/gyeu/stunnel
 container_name: stunnel
 ports:
 - ${STUNNEL_PORT:-36814}:${STUNNEL_PORT:-36814}
@@ -721,11 +743,13 @@ ports:
   volumes:
 - ./psk.dev.txt:/etc/stunnel/psk.txt:ro
   logging:
-  driver: "json-file"
+  driver: &quot;json-file&quot;
   options:
-  max-size: "50m"
-  max-file: "10"
-</code></pre></div><h3 id='build-docker-container-with-the-prodigy-stunnel-docker-compose-yml-file'>Build Docker container with the Prodigy stunnel docker-compose.yml file</h3>
+  max-size: &quot;50m&quot;
+  max-file: &quot;10&quot;
+```</p>
+</blockquote>
+<h3 id='build-docker-container-with-the-prodigy-stunnel-docker-compose-yml-file'>Build Docker container with the Prodigy stunnel docker-compose.yml file</h3>
 <p><code>cd to/dir/that/contains/docker-compose.yml</code></p>
 
 <p><code>docker-compose up docker-compose.yml</code></p>
@@ -770,10 +794,12 @@ ports:
 <p>Payload example</p>
 
 <blockquote>
-<p>Logon payload example</p>
+<p>Logon payload example
+<code>plaintext
+8=FIX.4.4 | 9=94 | 35=A | 49=ACCOUNT_MNEMONIC | 56=order_router | 34=1 | 52=20221007-15:49:42.769 | 98=0 | 108=30 | 141=Y | 10=112 |
+</code></p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>8=FIX.4.4 | 9=94 | 35=A | 49=ACCOUNT_MNEMONIC | 56=order_router | 34=1 | 52=20221007-15:49:42.769 | 98=0 | 108=30 | 141=Y | 10=112 |
-</code></pre></div>
+
 <p>Where:</p>
 
 <table><thead>
@@ -957,10 +983,12 @@ ports:
 <p>Logout payload example</p>
 
 <blockquote>
-<p>Logout payload example</p>
+<p>Logout payload example
+<code>plaintext
+8=FIX.4.4 | 9=66 | 35=5 | 49=ACCOUNT_MNEMONIC | 52=20221027-00:00:00.949 | 56=order_router | 10=027 |
+</code></p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>8=FIX.4.4 | 9=66 | 35=5 | 49=ACCOUNT_MNEMONIC | 52=20221027-00:00:00.949 | 56=order_router | 10=027 |
-</code></pre></div>
+
 <p>Where:</p>
 
 <table><thead>
@@ -1074,10 +1102,12 @@ Anatomy of a NewOrderSingle Message</p>
 <p>NewOrderSingle payload example</p>
 
 <blockquote>
-<p>NewOrderSingle payload example</p>
+<p>NewOrderSingle payload example
+<code>plaintext
+8=FIX.4.4 | 9=66 | 35=5 | 49=ACCOUNT_MNEMONIC | 52=20221027-00:00:00.949 | 56=order_router | 10=027 |
+</code></p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>8=FIX.4.4 | 9=66 | 35=5 | 49=ACCOUNT_MNEMONIC | 52=20221027-00:00:00.949 | 56=order_router | 10=027 |
-</code></pre></div>
+
 <p>Where:</p>
 
 <table><thead>
@@ -1254,10 +1284,12 @@ Anatomy of a NewOrderSingle Message</p>
 <p>OrderCancelRequest payload example</p>
 
 <blockquote>
-<p>OrderCancelRequest payload example</p>
+<p>OrderCancelRequest payload example
+<code>plaintext
+8=FIX.4.4 | 9=197 | 35=F | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=6 | 52=20221103-05:15:53.225 | 41=ACC_OO1-1567450006911 | 11=ACC_001_1667450006914 | 1=SCC_001 55=BTC-USD | 48=1000000189 | 54=1 | 60=20221103-04:33:27.139 | 38=69 | 10=238
+</code></p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>8=FIX.4.4 | 9=197 | 35=F | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=6 | 52=20221103-05:15:53.225 | 41=ACC_OO1-1567450006911 | 11=ACC_001_1667450006914 | 1=SCC_001 55=BTC-USD | 48=1000000189 | 54=1 | 60=20221103-04:33:27.139 | 38=69 | 10=238
-</code></pre></div>
+
 <p>Where:</p>
 
 <table><thead>
@@ -1350,10 +1382,12 @@ Anatomy of a NewOrderSingle Message</p>
 <p>OrderMassStatus payload example</p>
 
 <blockquote>
-<p>OrderMassStatus payload example</p>
+<p>OrderMassStatus payload example
+<code>plaintext
+8=FIX.4.4 | 9=93 35=AF | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=5. | 52=20221103-05:15:40.884 | 584=4 | 585=7 | 1=* | 10=039
+</code></p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>8=FIX.4.4 | 9=93 35=AF | 49=EIB_TRADER1_EMAIL_COM | 56=order_router | 34=5. | 52=20221103-05:15:40.884 | 584=4 | 585=7 | 1=* | 10=039
-</code></pre></div>
+
 <p>Where:</p>
 
 <table><thead>
@@ -1483,10 +1517,12 @@ Anatomy of a NewOrderSingle Message</p>
 <p>TradeCaptureReportRequest payload example</p>
 
 <blockquote>
-<p>TradeCaptureReportRequest payload example</p>
+<p>TradeCaptureReportRequest payload example
+<code>plaintext
+8=FIX.4.4 | 9=117 | 35=AD | 34=3 | 49=EIB_TRADER1_EMAIL_COM | 52=20221103-05:15:40.884 | 56=order_router | 1=* | 58=* | 100=* | 568=T21666588915 | 569=0 | 10=137
+</code></p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext tab-plaintext"><code>8=FIX.4.4 | 9=117 | 35=AD | 34=3 | 49=EIB_TRADER1_EMAIL_COM | 52=20221103-05:15:40.884 | 56=order_router | 1=* | 58=* | 100=* | 568=T21666588915 | 569=0 | 10=137
-</code></pre></div>
+
 <p>Where:</p>
 
 <table><thead>
