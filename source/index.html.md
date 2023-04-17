@@ -33,7 +33,7 @@ By using any API provided by Prodigy, you agree to its Terms of Use and Privacy 
 # Websocket API
 
 ## Connectivity (alpha)
-wss://clob-alpha.dura.fi:36821
+api.prodigy.fi
 
 ## Authorization
 Please contact your Prodigy representative to request an Alpha CLOB token for your connectivity.
